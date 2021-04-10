@@ -24,27 +24,37 @@ const Select: React.FC<ListItemProps> = ({items}: ListItemProps) => {
   const [getSelectItem, setSelectItem] = useState({} as ItemProps);
   const [showList, setShowList] = useState(false);
 
-  function renderListItems(items: ItemProps[]) {
+  const [searchItem, setSearchItem] = useState('');
+
+  const renderListItems = (items: ItemProps[]) => {
     return (
       <Container>
         <SearchBox>
-          <SearchInput></SearchInput>
+          <SearchInput
+            value={searchItem}
+            placeholder="Informe o que deseja buscar"
+            onChangeText={text => setSearchItem(text)}
+          />
         </SearchBox>
         <ListElements>
-          {items.map(item => (
-            <ButtonItem
-              key={item.id}
-              onPress={() => {
-                setSelectItem(item);
-                setShowList(false);
-              }}>
-              <ItemLabel>{item.label}</ItemLabel>
-            </ButtonItem>
-          ))}
+          {items
+            .filter(item =>
+              item.label.toLowerCase().includes(searchItem.toLowerCase()),
+            )
+            .map(item => (
+              <ButtonItem
+                key={item.id}
+                onPress={() => {
+                  setSelectItem(item);
+                  setShowList(false);
+                }}>
+                <ItemLabel>{item.label}</ItemLabel>
+              </ButtonItem>
+            ))}
         </ListElements>
       </Container>
     );
-  }
+  };
 
   return (
     <View>
