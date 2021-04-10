@@ -31,6 +31,7 @@ const Select: React.FC<ListItemProps> = ({items}: ListItemProps) => {
               key={item.id}
               onPress={() => {
                 setSelectItem(item);
+                setShowList(false);
               }}
               style={{
                 borderRadius: 10,
