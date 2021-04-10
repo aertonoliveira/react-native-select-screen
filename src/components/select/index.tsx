@@ -9,7 +9,10 @@ import {
   ItemLabel,
   ButtonItem,
   SearchInput,
+  SelectBox,
 } from '../../components/select/styles';
+// import {BiCaretDown} from 'react-icons/bi';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 type ItemProps = {
   id: number;
@@ -49,20 +52,10 @@ const Select: React.FC<ListItemProps> = ({items}: ListItemProps) => {
   return (
     <View>
       {!showList ? (
-        <TouchableOpacity
-          style={{
-            borderRadius: 10,
-            borderWidth: 1,
-            borderColor: '#cccccc',
-            padding: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-          onPress={() => setShowList(true)}>
+        <SelectBox onPress={() => setShowList(true)}>
           <Text>{getSelectItem.label ?? 'select item'}</Text>
-          <View style={{width: 20, height: 20, backgroundColor: '#666'}} />
-        </TouchableOpacity>
+          <Icon name="angle-down" size={18} color="#999" />
+        </SelectBox>
       ) : (
         renderListItems(items)
       )}

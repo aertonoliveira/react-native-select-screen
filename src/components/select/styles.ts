@@ -30,6 +30,18 @@ export const ButtonItem = styled.TouchableOpacity`
   borderStyle: solid;
   padding: 20px;
 `;
+export const SelectBox = styled.TouchableOpacity`
+    border-radius: 10px;
+    border-width: 1px;
+    borderColor: #cccccc;
+    borderStyle: solid;
+    padding: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+
 
 export const SearchInput = styled.TextInput`
 `;
