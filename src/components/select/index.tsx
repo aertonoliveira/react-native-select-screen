@@ -6,6 +6,9 @@ import {
   Container,
   SearchBox,
   ListElements,
+  ItemLabel,
+  ButtonItem,
+  SearchInput,
 } from '../../components/select/styles';
 
 type ItemProps = {
@@ -24,23 +27,19 @@ const Select: React.FC<ListItemProps> = ({items}: ListItemProps) => {
   function renderListItems(items: ItemProps[]) {
     return (
       <Container>
-        <SearchBox></SearchBox>
+        <SearchBox>
+          <SearchInput></SearchInput>
+        </SearchBox>
         <ListElements>
           {items.map(item => (
-            <TouchableOpacity
+            <ButtonItem
               key={item.id}
               onPress={() => {
                 setSelectItem(item);
                 setShowList(false);
-              }}
-              style={{
-                borderRadius: 10,
-                borderWidth: 1,
-                borderColor: '#cccccc',
-                padding: 20,
               }}>
-              <Text>{item.label}</Text>
-            </TouchableOpacity>
+              <ItemLabel>{item.label}</ItemLabel>
+            </ButtonItem>
           ))}
         </ListElements>
       </Container>
@@ -49,21 +48,24 @@ const Select: React.FC<ListItemProps> = ({items}: ListItemProps) => {
 
   return (
     <View>
-      {showList ?? renderListItems(items)}
-      <TouchableOpacity
-        style={{
-          borderRadius: 10,
-          borderWidth: 1,
-          borderColor: '#cccccc',
-          padding: 20,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-        onPress={() => setShowList(false)}>
-        <Text>{getSelectItem.label}</Text>
-        <View style={{width: 20, height: 20, backgroundColor: '#666'}} />
-      </TouchableOpacity>
+      {!showList ? (
+        <TouchableOpacity
+          style={{
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: '#cccccc',
+            padding: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+          onPress={() => setShowList(true)}>
+          <Text>{getSelectItem.label ?? 'select item'}</Text>
+          <View style={{width: 20, height: 20, backgroundColor: '#666'}} />
+        </TouchableOpacity>
+      ) : (
+        renderListItems(items)
+      )}
     </View>
   );
 };
